@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Colorbang | Nuestra Empresa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --naranja: #FF6600; --negro: #000; --gris: #f8fafc; --border: #e2e8f0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: #fff; color: #1a202c; scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* HEADER UNIFICADO (Igual a Inicio y Contacto) */
+        header { 
+            background: rgba(0,0,0,0.95); padding: 10px 50px; display: flex; 
+            justify-content: space-between; align-items: center; position: sticky; 
+            top: 0; z-index: 2000; backdrop-filter: blur(10px); height: 95px; 
+        }
+        .logo-cb img { height: 75px; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li a { color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        nav ul li a:hover, nav ul li a.active { color: var(--naranja); }
+        
+        .header-actions { display: flex; align-items: center; gap: 20px; color: #fff; }
+        .cart-trigger { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .cart-icon-box { position: relative; font-size: 26px; }
+        .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--naranja); color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 50%; font-weight: 800; border: 2px solid #000; }
+
+        /* HERO SECCIÓN EMPRESA */
+        .hero-empresa { 
+            height: 70vh; 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069'); 
+            background-size: cover; background-position: center; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            color: #fff; text-align: center; padding: 0 20px;
+        }
+
+        /* MARCA COLORBANG AJUSTADA (Más pequeña y letras más juntas) */
+        .brand-tag-hero { 
+        font-size: 5rem !important; 
+        font-weight: 900; 
+        letter-spacing: 12px; 
+        color: #FF6600; 
+        text-transform: uppercase; 
+        position: relative;
+        top: -40px; 
+        line-height: 1;
+        text-shadow: 0 1px 0 #cc5200, 0 2px 0 #b34700, 0 10px 20px rgba(0,0,0,0.4);
+        margin-bottom: 20px;
+    }
+
+        .hero-empresa h1 { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
+        .hero-empresa p { font-size: 1.2rem; max-width: 700px; opacity: 0.9; font-weight: 300; }
+
+        /* CONTENIDO */
+        .content-section { max-width: 1000px; margin: 80px auto; padding: 0 20px; line-height: 1.8; font-size: 1.1rem; color: #444; }
+
+        /* CARRITO LATERAL */
+        #cart-drawer { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: #fff; z-index: 3000; transition: 0.4s; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; color: #000; }
+        #cart-drawer.active { right: 0; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2500; display: none; }
+        .overlay.active { display: block; }
+
+        footer { background: #000; color: #fff; padding: 40px; text-align: center; font-size: 13px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+
+<header>
+    <div class="logo-cb"><img src="img/logo.jpg" alt="Colorbang"></div>
+    <nav>
+        <ul>
+            <li><a href="index.html">INICIO</a></li>
+            <li><a href="empresa.html" class="active">EMPRESA</a></li>
+            <li><a href="#">SERVICIOS</a></li>
+            <li><a href="index.html#filters">CATÁLOGOS</a></li>
+            <li><a href="#">GO GREEN</a></li>
+            <li><a href="contacto.html">CONTACTO</a></li>
+        </ul>
+    </nav>
+    <div class="header-actions">
+        <div class="cart-trigger" onclick="toggleCart()">
+            <div class="cart-icon-box">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge" id="bag-count">0</span>
+            </div>
+            <span style="color:#fff; font-weight:700; margin-left:10px">Carrito</span>
+        </div>
+    </div>
+</header>
+
+
+<section class="hero-empresa">
+    <div class="brand-tag-hero">COLORBANG</div>
+    <h1>NUESTRA EMPRESA</h1>
+    <p>Ingeniería Textil Avanzada para la Industria Crítica.</p>
+</section>
+
+<section class="content-section">
+    <h2 style="color:var(--naranja); margin-bottom:20px; font-weight:900;">Líderes en Protección Textil</h2>
+    <p>En Colorbang, transformamos la seguridad laboral en una ventaja estratégica. Nos especializamos en el desarrollo de vestuario técnico de élite para los sectores industriales más exigentes de Chile. Nuestra ingeniería textil combina durabilidad extrema con un diseño ergonómico que potencia el rendimiento de cada trabajador.</p>
+</section>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div id="cart-drawer">
+    <div style="display:flex; justify-content:space-between; margin-bottom:30px">
+        <h2 style="font-weight:800">MI PEDIDO</h2>
+        <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer; font-size:1.5rem"></i>
+    </div>
+    <div id="cart-content" style="flex-grow:1; overflow-y:auto"></div>
+    <div style="border-top:2px solid #000; padding-top:20px;">
+        <h3 id="total-price" style="font-size:1.5rem; font-weight:800; margin-bottom:20px">Total: $0</h3>
+        <button style="width:100%; background:var(--naranja); color:#fff; padding:20px; border:none; font-weight:800; cursor:pointer" onclick="enviarWA()">COTIZAR POR WHATSAPP</button>
+    </div>
+</div>
+
+
+<footer>
+    <div class="footer-grid" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; text-align: left; padding: 60px 20px; background: #050505; color: #fff;">
+        <div class="footer-col">
+            <h4 style="color:#FF6600; margin-bottom:20px; font-weight:800;">Colorbang Workwear</h4>
+            <p style="opacity:0.8; line-height:1.6; font-size:14px;">Ingeniería textil avanzada para corporaciones e industrias críticas en todo Chile.</p>
+        </div>
+        <div class="footer-col">
+            <h4 style="color:#FF6600; margin-bottom:20px; font-weight:800;">Contacto Directo</h4>
+            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-location-dot" style="color:#FF6600; width:20px"></i> <a href="https://maps.app.goo.gl/" target="_blank" style="color:#fff; text-decoration:none">Av. Providencia 2216, Santiago, Chile</a></p>
+            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-phone" style="color:#FF6600; width:20px"></i> +56 9 4522 3664</p>
+            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-envelope" style="color:#FF6600; width:20px"></i> ventas@colorbang.cl</p>
+        </div>
+        <div class="footer-col" style="text-align:center">
+            <h4 style="color:#FF6600; margin-bottom:20px; font-weight:800;">Síguenos</h4>
+            <div style="display:flex; gap:25px; font-size:24px; justify-content:center;">
+                <a href="https://www.facebook.com/share/18Fm1Bw2wy" target="_blank" style="color:#fff;"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/cb_workwear" target="_blank" style="color:#fff;"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color:#fff;"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+    <div style="background: #000; padding: 20px; text-align: center; border-top: 1px solid #222;">
+        <p style="opacity: 0.5; font-size: 11px;">© 2026 COLORBANG. TODOS LOS DERECHOS RESERVADOS.</p>
+    </div>
+</footer>
+
+
+<script>
+    // Sistema de Carrito Compartido
+    let cart = JSON.parse(localStorage.getItem('cb_v12_cart')) || {};
+    let productos = [];
+
+    async function cargarBase() {
+        try {
+            const res = await fetch('db.csv?v=' + Math.random());
+            const texto = await res.text();
+            const filas = texto.split(/\r?\n/).filter(l => l.trim() !== "");
+            productos = filas.slice(1).map(fila => {
+                const sep = fila.includes(';') ? ';' : ',';
+                const c = fila.split(sep);
+                return { sku: (c[0]||'').trim(), tit: (c[1]||'').trim(), precio: (c[2]||'').trim(), img: (c[6]||'').trim() };
+            });
+            actualizarInterfaz();
+        } catch (e) { console.log("Cargando solo interfaz de carrito..."); actualizarInterfaz(); }
+    }
+
+    function toggleCart() {
+        document.getElementById('cart-drawer').classList.toggle('active');
+        document.getElementById('overlay').classList.toggle('active');
+    }
+
+    function actualizarInterfaz() {
+        let totalU = 0; let totalD = 0;
+        const content = document.getElementById('cart-content');
+        content.innerHTML = "";
+
+        for(let sku in cart) {
+            totalU += cart[sku];
+            const p = productos.find(x => x.sku === sku);
+            if(p) {
+                const precioL = parseInt(p.precio.replace(/[^0-9]/g, '')) || 0;
+                totalD += (precioL * cart[sku]);
+                content.innerHTML += `
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px">
+                        <img src="${p.img}" style="width:50px; height:50px; object-fit:cover; border-radius:5px">
+                        <div style="flex:1">
+                            <p style="font-size:12px; margin:0; font-weight:700">${p.tit}</p>
+                            <p style="font-size:12px; margin:0; font-weight:800; color:#FF6600">${cart[sku]} x ${p.precio}</p>
+                        </div>
+                    </div>`;
+            }
+        }
+        document.getElementById('bag-count').innerText = totalU;
+        document.getElementById('total-price').innerText = "Total: $" + totalD.toLocaleString('es-CL');
+    }
+
+    function enviarWA() {
+        let msg = "Hola Colorbang, quiero cotizar desde la sección Empresa:%0A%0A";
+        for(let s in cart) { msg += `🔹 Cantidad: ${cart[s]} - SKU: ${s}%0A`; }
+        window.open(`https://wa.me/56945223664?text=${msg}`);
+    }
+
+    window.onload = cargarBase;
+</script>
+
+</body>
+</html>
