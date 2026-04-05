@@ -10,7 +10,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: #fff; color: #1a202c; scroll-behavior: smooth; overflow-x: hidden; }
 
-        /* HEADER UNIFICADO (Igual a Inicio y Contacto) */
+        /* HEADER UNIFICADO */
         header { 
             background: rgba(0,0,0,0.95); padding: 10px 50px; display: flex; 
             justify-content: space-between; align-items: center; position: sticky; 
@@ -35,19 +35,18 @@
             color: #fff; text-align: center; padding: 0 20px;
         }
 
-        /* MARCA COLORBANG AJUSTADA (Más pequeña y letras más juntas) */
         .brand-tag-hero { 
-        font-size: 5rem !important; 
-        font-weight: 900; 
-        letter-spacing: 12px; 
-        color: #FF6600; 
-        text-transform: uppercase; 
-        position: relative;
-        top: -40px; 
-        line-height: 1;
-        text-shadow: 0 1px 0 #cc5200, 0 2px 0 #b34700, 0 10px 20px rgba(0,0,0,0.4);
-        margin-bottom: 20px;
-    }
+            font-size: 5rem !important; 
+            font-weight: 900; 
+            letter-spacing: 12px; 
+            color: #FF6600; 
+            text-transform: uppercase; 
+            position: relative;
+            top: -40px; 
+            line-height: 1;
+            text-shadow: 0 1px 0 #cc5200, 0 2px 0 #b34700, 0 10px 20px rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+        }
 
         .hero-empresa h1 { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
         .hero-empresa p { font-size: 1.2rem; max-width: 700px; opacity: 0.9; font-weight: 300; }
@@ -61,7 +60,7 @@
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2500; display: none; }
         .overlay.active { display: block; }
 
-        footer { background: #000; color: #fff; padding: 40px; text-align: center; font-size: 13px; opacity: 0.8; }
+        footer { background: #000; color: #fff; margin-top: 80px; }
     </style>
 </head>
 <body>
@@ -124,9 +123,9 @@
         </div>
         <div class="footer-col">
             <h4 style="color:#FF6600; margin-bottom:20px; font-weight:800;">Contacto Directo</h4>
-            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-location-dot" style="color:#FF6600; width:20px"></i> <a href="https://maps.app.goo.gl/" target="_blank" style="color:#fff; text-decoration:none">Av. Providencia 2216, Santiago, Chile</a></p>
-            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-phone" style="color:#FF6600; width:20px"></i> +56 9 4522 3664</p>
-            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-envelope" style="color:#FF6600; width:20px"></i> ventas@colorbang.cl</p>
+            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-location-dot" style="color:#FF6600; width:20px"></i> Av. Providencia 2216, Santiago - Chile</p>
+            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-brands fa-whatsapp" style="color:#FF6600; width:20px"></i> <a href="https://wa.me/56945223664" target="_blank" style="color:#fff; text-decoration:none">+56 9 4522 3664</a></p>
+            <p style="margin-bottom:10px; font-size:14px;"><i class="fa-solid fa-envelope" style="color:#FF6600; width:20px"></i> <a href="mailto:gerenciacolorbang@gmail.com" style="color:#fff; text-decoration:none">gerenciacolorbang@gmail.com</a></p>
         </div>
         <div class="footer-col" style="text-align:center">
             <h4 style="color:#FF6600; margin-bottom:20px; font-weight:800;">Síguenos</h4>
@@ -134,6 +133,7 @@
                 <a href="https://www.facebook.com/share/18Fm1Bw2wy" target="_blank" style="color:#fff;"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/cb_workwear" target="_blank" style="color:#fff;"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" style="color:#fff;"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" style="color:#fff;"><i class="fa-brands fa-youtube"></i></a>
             </div>
         </div>
     </div>
@@ -144,7 +144,6 @@
 
 
 <script>
-    // Sistema de Carrito Compartido
     let cart = JSON.parse(localStorage.getItem('cb_v12_cart')) || {};
     let productos = [];
 
@@ -194,7 +193,10 @@
 
     function enviarWA() {
         let msg = "Hola Colorbang, quiero cotizar desde la sección Empresa:%0A%0A";
-        for(let s in cart) { msg += `🔹 Cantidad: ${cart[s]} - SKU: ${s}%0A`; }
+        for(let s in cart) {
+            const p = productos.find(x => x.sku === s);
+            if(p) msg += `🔹 ${cart[s]}x ${p.tit} (SKU: ${s})%0A`;
+        }
         window.open(`https://wa.me/56945223664?text=${msg}`);
     }
 
